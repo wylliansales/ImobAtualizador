@@ -66,6 +66,11 @@
             <artifactId>jaybird-jdk18</artifactId>
             <version>2.2.12</version>   
         </dependency>
+          <dependency>
+               <groupId>org.jdesktop</groupId>
+               <artifactId>beansbinding</artifactId>
+               <version>1.2.1</version>
+          </dependency>
      </dependencies>
      
 </project>

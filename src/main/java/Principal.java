@@ -67,8 +67,7 @@ public class Principal extends javax.swing.JFrame {
         getInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        setResizable(false);
+        setBackground(new java.awt.Color(0, 0, 0));
 
         jButton1.setText("Buscar nova Atualização");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -85,44 +84,41 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(166, 166, 166))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(getInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(getInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(230, 230, 230)
+                            .addComponent(jButton1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(96, 96, 96)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(getInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        getAccessibleContext().setAccessibleName("Atualizar_qimob");
-        getAccessibleContext().setAccessibleDescription("Atualizar_qimob");
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jButton1.setEnabled(false);       
-        
+        jButton1.setEnabled(false);
+
         new Thread() {
-            public void run() {    
+            public void run() {
 
                 String host = "";
                 FileReader ff;
@@ -154,7 +150,7 @@ public class Principal extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }
-  
+
                 File dir = new File("update");
                 if (!dir.exists()) {
                     dir.mkdir();
@@ -182,136 +178,135 @@ public class Principal extends javax.swing.JFrame {
                     //ESSE ARQUIVO ESTÁ SENDO CRIADO COM TODAS AS PASTAS LOCALIZADA NO C:
                     //ESSE FILE SERÁ ITERADO LOGO ADIANTE, PESQUISARÁ TODAS AS INSTALAÇÕES
                     File file = new File("C:\\");
-                    File files[] = file.listFiles();
+                        File files[] = file.listFiles();
 
-                    jProgressBar1.setValue(50);
+                        jProgressBar1.setValue(50);
 
-                    //DOWNALOD DO ARQUIVO TXT QUE TEM OS CLIENTES CRIPTOGRAFADO COM CHAVE "MhlZukWsyijZwhW5oo"
-                    Dropbox d = new Dropbox();
-                    getInfo.setText("Validando......");
-                    try{
-                        d.dowloand(dir + "\\0000000000.txt", "/0000000000.txt");
-                    } catch(com.dropbox.core.NetworkIOException ex){
-                        JOptionPane.showMessageDialog(null, "Falha! Conexão com a internet");
-                        dispose();
-                        System.exit(0);
-                    }
-                    
-
-                    jProgressBar1.setValue(52);
-
-                    ConectDB conect = new ConectDB(host, System.getProperty("user.dir")+"/QIMOB.FDB", "SYSDBA", "masterkey");
-                    jProgressBar1.setValue(53);
-                    //Retorna dados[0]= cnpj; dados[1]= empresa;
-                    //String dados[] = null;
-                    String[] dados = null;
-                    try{
-                      dados = ConectDB.getEmpresaCnpj(conect);
-                    } catch(java.lang.NullPointerException e){
-                        JOptionPane.showMessageDialog(null, "Algum error aconteceu com o host, entre em contato com suporte");
-                        System.exit(0);
-                    }
-                    // Método que verifica se o cliente tem autorização 
-                    jProgressBar1.setValue(54);
-                    
-                    String autorizacao = Arquivo.lerTxtVerif(dir + "\\0000000000.txt", dados[0]);
-                    conect.disconnect();
-                    //Se a atualização estiver liberada para o cliente entra nessa condição
-                    if (autorizacao.equalsIgnoreCase("true")) {
-
-                        getInfo.setText("Aguarde esse procedimento pode demorar, baixando atualização.......");
-                        //Começa o downlaod do arquivo imob.zip
+                        //DOWNALOD DO ARQUIVO TXT QUE TEM OS CLIENTES CRIPTOGRAFADO COM CHAVE "MhlZukWsyijZwhW5oo"
+                        Dropbox d = new Dropbox();
+                        getInfo.setText("Validando......");
                         try{
-                            d.dowloand(dir + "\\imob.zip", "/imob.zip");
-                        } catch(com.dropbox.core.v2.files.DownloadErrorException e){
-                            JOptionPane.showMessageDialog(null, "Uma nova atualização ainda não foi disponibilizada, tente mais tarde!");
+                            d.dowloand(dir + "\\0000000000.txt", "/0000000000.txt");
+                        } catch(com.dropbox.core.NetworkIOException ex){
+                            JOptionPane.showMessageDialog(null, "Falha! Conexão com a internet");
                             dispose();
                             System.exit(0);
                         }
-                        
-                        //Descompacta na pasta local
-                        Zip.descompactar(dir + "\\imob.zip");
-                        Email.enviarEmail("suporte@qative.com.br", "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " atualizou o qImob!");
-                        jProgressBar1.setValue(55);
-                        //For para localizar todas as pastas do qimob 
-                        cont = jProgressBar1.getValue();
-                        for (File f : files) {
 
-                            cont += 1;
-                            if (f.getName().toLowerCase().startsWith("qimob")) {
-                                File arquivoAntigo = new File(f.getAbsolutePath() + "\\iMob.exe");
-                                //A atização só vai ser realizada para bancos configurados caso contrario não será atualizado
+                        jProgressBar1.setValue(52);
 
-                                if (!("qimob".equalsIgnoreCase(f.getName()))) {
-                                    conect = new ConectDB(host, "c:/" + f.getName() + "/QIMOB.FDB", "SYSDBA", "masterkey");
-                                    if (conect.connect()) {
-                                        String dados1[] = ConectDB.getEmpresaCnpj(conect);
-                                        String autorizacao1 = Arquivo.lerTxtVerif(dir + "\\0000000000.txt", dados[0]);
-                                            
-                                        if (autorizacao1.equalsIgnoreCase("true")) {
-                                            if (arquivoAntigo.exists()) {
-                                                arquivoAntigo.delete();
-                                                arquivoAntigo.delete();
-                                                arquivoAntigo.delete();
+                        ConectDB conect = new ConectDB(host, System.getProperty("user.dir")+"/QIMOB.FDB", "SYSDBA", "masterkey");
+                        jProgressBar1.setValue(53);
+                        //Retorna dados[0]= cnpj; dados[1]= empresa;
+                        //String dados[] = null;
+                        String[] dados = null;
+                        try{
+                            dados = ConectDB.getEmpresaCnpj(conect);
+                        } catch(java.lang.NullPointerException e){
+                            JOptionPane.showMessageDialog(null, "Algum error aconteceu com o host, entre em contato com suporte");
+                            System.exit(0);
+                        }
+                        // Método que verifica se o cliente tem autorização
+                        jProgressBar1.setValue(54);
+
+                        String autorizacao = Arquivo.lerTxtVerif(dir + "\\0000000000.txt", dados[0]);
+                        conect.disconnect();
+                        //Se a atualização estiver liberada para o cliente entra nessa condição
+                        if (autorizacao.equalsIgnoreCase("true")) {
+
+                            getInfo.setText("Aguarde esse procedimento pode demorar, baixando atualização.......");
+                            //Começa o downlaod do arquivo imob.zip
+                            try{
+                                d.dowloand(dir + "\\imob.zip", "/imob.zip");
+                            } catch(com.dropbox.core.v2.files.DownloadErrorException e){
+                                JOptionPane.showMessageDialog(null, "Uma nova atualização ainda não foi disponibilizada, tente mais tarde!");
+                                dispose();
+                                System.exit(0);
+                            }
+
+                            //Descompacta na pasta local
+                            Zip.descompactar(dir + "\\imob.zip");
+                            Email.enviarEmail("suporte@qative.com.br", "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " atualizou o qImob!");
+                            jProgressBar1.setValue(55);
+                            //For para localizar todas as pastas do qimob
+                            cont = jProgressBar1.getValue();
+                            for (File f : files) {
+
+                                cont += 1;
+                                if (f.getName().toLowerCase().startsWith("qimob")) {
+                                    File arquivoAntigo = new File(f.getAbsolutePath() + "\\iMob.exe");
+                                    //A atização só vai ser realizada para bancos configurados caso contrario não será atualizado
+
+                                    if (!("qimob".equalsIgnoreCase(f.getName()))) {
+                                        conect = new ConectDB(host, "c:/" + f.getName() + "/QIMOB.FDB", "SYSDBA", "masterkey");
+                                        if (conect.connect()) {
+                                            String dados1[] = ConectDB.getEmpresaCnpj(conect);
+                                            String autorizacao1 = Arquivo.lerTxtVerif(dir + "\\0000000000.txt", dados[0]);
+
+                                            if (autorizacao1.equalsIgnoreCase("true")) {
+                                                if (arquivoAntigo.exists()) {
+                                                    arquivoAntigo.delete();
+                                                    arquivoAntigo.delete();
+                                                    arquivoAntigo.delete();
+                                                }
+
+                                                FileInputStream inputstream = new FileInputStream("iMob.exe");
+                                                File file2 = new File(f.getAbsolutePath() + "\\iMob.exe");
+                                                //Transferêcia da atualização
+                                                FileUtils.copyInputStreamToFile(inputstream, file2);
+                                                getInfo.setText(f.getAbsolutePath() + " (ATUALIZADO)");
                                             }
-
-                                            FileInputStream inputstream = new FileInputStream("iMob.exe");
-                                            File file2 = new File(f.getAbsolutePath() + "\\iMob.exe");
-                                            //Transferêcia da atualização    
-                                            FileUtils.copyInputStreamToFile(inputstream, file2);
-                                            getInfo.setText(f.getAbsolutePath() + " (ATUALIZADO)");
+                                        } else {
+                                            sleep(100);
+                                            getInfo.setText(f.getAbsolutePath() + " (NAO ATUALIZADO)");
+                                            System.out.println(f.getAbsolutePath() + " nAo foi possível conectar com banco (NAO ATUALIZADO)");
                                         }
-                                    } else {
-                                        sleep(100);
-                                        getInfo.setText(f.getAbsolutePath() + " (NAO ATUALIZADO)");
-                                        System.out.println(f.getAbsolutePath() + " nAo foi possível conectar com banco (NAO ATUALIZADO)");
+
                                     }
 
+                                    getInfo.setText("Atualizando..............");
                                 }
+                            }
 
-                                getInfo.setText("Atualizando..............");
+                        } else {
+                            if (autorizacao.equalsIgnoreCase("false")) {
+                                JOptionPane.showMessageDialog(null, "Sua atualização está bloqueada entre em contato com o suporte");
+                                dispose();
+                                System.exit(0);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Seu cadastro não foi localizado, entre em contato com o suporte!");
+                                dispose();
+                                System.exit(0);
                             }
                         }
 
-                    } else {
-                        if (autorizacao.equalsIgnoreCase("false")) {                            
-                            JOptionPane.showMessageDialog(null, "Sua atualização está bloqueada entre em contato com o suporte");
-                            dispose();
-                            System.exit(0);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Seu cadastro não foi localizado, entre em contato com o suporte!");
-                            dispose();
-                            System.exit(0);
-                        }
-                    }
+                        for (int i = cont; i <= 100; i++) {
+                            sleep(50);
+                            jProgressBar1.setValue(i);
+                            if (jProgressBar1.getValue() == 100) {
+                                getInfo.setText("Finalizando..............");
 
-                    for (int i = cont; i <= 100; i++) {
-                        sleep(50);
-                        jProgressBar1.setValue(i);
-                        if (jProgressBar1.getValue() == 100) {
-                            getInfo.setText("Finalizando..............");
-
-                            // URL url = this.getClass().getResource("/imagens/icon.png"); 
-                            /*  ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/iconn.png"));
+                                // URL url = this.getClass().getResource("/imagens/icon.png");
+                                /*  ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/iconn.png"));
                                 JOptionPane.showMessageDialog(
-                            null,
-                            "qImob_1.0 Atualizado!",
-                            "qImob_1.0", JOptionPane.INFORMATION_MESSAGE,
-                            imagem); */
-                            JOptionPane.showMessageDialog(null, "Sistema atualizado!");
-                            File f1 = new File(dir.getAbsolutePath() + "0000000000.txt");
-                            f1.delete();
-                            dispose();
-                            System.exit(0);
+                                    null,
+                                    "qImob_1.0 Atualizado!",
+                                    "qImob_1.0", JOptionPane.INFORMATION_MESSAGE,
+                                    imagem); */
+                                JOptionPane.showMessageDialog(null, "Sistema atualizado!");
+                                File f1 = new File(dir.getAbsolutePath() + "0000000000.txt");
+                                f1.delete();
+                                dispose();
+                                System.exit(0);
+                            }
                         }
+                    } catch (InterruptedException ex) {
+                        System.out.println("Erro barra de progresso");
+                    } catch (Exception ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (InterruptedException ex) {
-                    System.out.println("Erro barra de progresso");
-                } catch (Exception ex) {
-                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-        }.start();
+            }.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
