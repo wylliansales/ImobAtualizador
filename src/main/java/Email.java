@@ -21,7 +21,7 @@ import javax.mail.internet.MimeMessage;
  * @author Suporte
  */
 public class Email {
-    public static void enviarEmail(String email, String msg){
+    public static void enviarEmail(String email, String msg, String assunto){
         Properties props = new Properties();
             /** Parâmetros de conexão com servidor Gmail */
             props.put("mail.smtp.host", "smtp.gmail.com");
@@ -47,7 +47,7 @@ public class Email {
                   Address[] toUser = InternetAddress //Destinatário(s)
                              .parse(email);  
                   message.setRecipients(Message.RecipientType.TO, toUser);
-                  message.setSubject("Atualização qImob");//Assunto
+                  message.setSubject(assunto);//Assunto
                   message.setText(msg +"\n"+ new Date());
                   /**Método para enviar a mensagem criada*/
                   Transport.send(message);                  

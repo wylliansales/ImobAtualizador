@@ -122,6 +122,7 @@ public class Principal extends javax.swing.JFrame {
 
                 String host = "";
                 FileReader ff;
+                String email = "wylliansales@hotmail.com";
                 try {
                     ff = new FileReader(new File("host-update.txt"));
                     BufferedReader ler = new BufferedReader(ff);
@@ -226,7 +227,7 @@ public class Principal extends javax.swing.JFrame {
 
                             //Descompacta na pasta local
                             Zip.descompactar(dir + "\\imob.zip");
-                            Email.enviarEmail("suporte@qative.com.br", "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " atualizou o qImob!");
+                            Email.enviarEmail(email, "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " atualizou o qImob!", "Atualização qImob (SUCESSO)");
                             jProgressBar1.setValue(55);
                             //For para localizar todas as pastas do qimob
                             cont = jProgressBar1.getValue();
@@ -270,10 +271,12 @@ public class Principal extends javax.swing.JFrame {
 
                         } else {
                             if (autorizacao.equalsIgnoreCase("false")) {
+                                Email.enviarEmail(email, "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " atualização bloqueada!", "Atualização qImob (BLOQUEADA)");
                                 JOptionPane.showMessageDialog(null, "Sua atualização está bloqueada entre em contato com o suporte");
                                 dispose();
                                 System.exit(0);
                             } else {
+                                Email.enviarEmail(email, "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " cadastro não encontrado!", "Atualização qImob (NÃO ENCONTRADO)");
                                 JOptionPane.showMessageDialog(null, "Seu cadastro não foi localizado, entre em contato com o suporte!");
                                 dispose();
                                 System.exit(0);
