@@ -136,12 +136,13 @@ public class ConectDB {
                 
                 if(dados[0] == null || dados[1] == null) {
                     JOptionPane.showMessageDialog(null, "Informaçõe necessária não cadastrada no sistema");
-                System.exit(0);
+                    Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
+                    System.exit(0);
                 }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Algum error aconteceu com o host, entre em contato com suporte");
-
+            Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
             System.exit(0);
         }
         return dados;

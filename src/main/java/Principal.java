@@ -6,23 +6,17 @@
 
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import static java.lang.Thread.sleep;
 import java.net.URL;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -35,22 +29,12 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     public Principal() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
         initComponents();
 
-        /* URL url = this.getClass().getResource("/icon.png");  
+        URL url = this.getClass().getResource("/icon.png");  
 	Image faviIcon = Toolkit.getDefaultToolkit().getImage(url);  
-        this.setIconImage(faviIcon); */
+        this.setIconImage(faviIcon);
     }
 
     /**
@@ -62,13 +46,23 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jButton1 = new javax.swing.JButton();
         getInfo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
 
+        jPanel1.setBackground(new java.awt.Color(48, 49, 51));
+        jPanel1.setPreferredSize(new java.awt.Dimension(420, 226));
+
+        jProgressBar1.setStringPainted(true);
+
+        jButton1.setBackground(new java.awt.Color(48, 49, 51));
+        jButton1.setForeground(new java.awt.Color(247, 147, 30));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh-button.png"))); // NOI18N
         jButton1.setText("Buscar nova Atualização");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,36 +70,53 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jProgressBar1.setStringPainted(true);
-
         getInfo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        getInfo.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo qative.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(getInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(jButton1)))
+                .addContainerGap(82, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jLabel1)
+                .addGap(34, 34, 34)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(getInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(getInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(230, 230, 230)
-                            .addComponent(jButton1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(96, 96, 96)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(125, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(getInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -122,7 +133,8 @@ public class Principal extends javax.swing.JFrame {
 
                 String host = "";
                 FileReader ff;
-                String email = "wylliansales@hotmail.com";
+                String email = "suporte@qative.com.br";
+                
                 try {
                     ff = new FileReader(new File("host-update.txt"));
                     BufferedReader ler = new BufferedReader(ff);
@@ -152,10 +164,6 @@ public class Principal extends javax.swing.JFrame {
                     Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                File dir = new File("update");
-                if (!dir.exists()) {
-                    dir.mkdir();
-                }
                 //TRECHO DE CÓDIGO FECHA TODAS AS INSTANCIAS DO SISTEMA
                 try {
                     jProgressBar1.setValue(2);
@@ -167,7 +175,7 @@ public class Principal extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Reinicia o computador e tente novamente!");
                 } catch (InterruptedException ex) {
-                    JOptionPane.showMessageDialog(null, "É necessário fecha o qimob");
+                    JOptionPane.showMessageDialog(null, "É necessário fechar o qimob");
                 }
 
                 //COMEÇA O PROCEDIMENTO DE ATUALIZAÇÃO
@@ -187,7 +195,7 @@ public class Principal extends javax.swing.JFrame {
                         Dropbox d = new Dropbox();
                         getInfo.setText("Validando......");
                         try{
-                            d.dowloand(dir + "\\0000000000.txt", "/0000000000.txt");
+                            d.dowloand(System.getProperty("user.dir") + "/0000000000.txt", "/0000000000.txt");
                         } catch(com.dropbox.core.NetworkIOException ex){
                             JOptionPane.showMessageDialog(null, "Falha! Conexão com a internet");
                             dispose();
@@ -205,20 +213,21 @@ public class Principal extends javax.swing.JFrame {
                             dados = ConectDB.getEmpresaCnpj(conect);
                         } catch(java.lang.NullPointerException e){
                             JOptionPane.showMessageDialog(null, "Algum error aconteceu com o host, entre em contato com suporte");
+                            Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
                             System.exit(0);
                         }
                         // Método que verifica se o cliente tem autorização
                         jProgressBar1.setValue(54);
 
-                        String autorizacao = Arquivo.lerTxtVerif(dir + "\\0000000000.txt", dados[0]);
+                        String autorizacao = Arquivo.lerTxtVerif(System.getProperty("user.dir") + "/0000000000.txt", dados[0]);
                         conect.disconnect();
                         //Se a atualização estiver liberada para o cliente entra nessa condição
-                        if (autorizacao.equalsIgnoreCase("true")) {
+                        if (autorizacao.equalsIgnoreCase("1")) {
 
                             getInfo.setText("Aguarde esse procedimento pode demorar, baixando atualização.......");
                             //Começa o downlaod do arquivo imob.zip
                             try{
-                                d.dowloand(dir + "\\imob.zip", "/imob.zip");
+                                d.dowloand(System.getProperty("user.dir") + "/update.zip", "/update.zip");
                             } catch(com.dropbox.core.v2.files.DownloadErrorException e){
                                 JOptionPane.showMessageDialog(null, "Uma nova atualização ainda não foi disponibilizada, tente mais tarde!");
                                 dispose();
@@ -226,7 +235,10 @@ public class Principal extends javax.swing.JFrame {
                             }
 
                             //Descompacta na pasta local
-                            Zip.descompactar(dir + "\\imob.zip");
+                           
+                            File zipFile = new File(System.getProperty("user.dir") + "/update.zip");
+                            File outDir = new File(System.getProperty("user.dir"));
+                            Arquivo.uncompact(zipFile, outDir);
                             Email.enviarEmail(email, "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " atualizou o qImob!", "Atualização qImob (SUCESSO)");
                             jProgressBar1.setValue(55);
                             //For para localizar todas as pastas do qimob
@@ -235,26 +247,21 @@ public class Principal extends javax.swing.JFrame {
 
                                 cont += 1;
                                 if (f.getName().toLowerCase().startsWith("qimob")) {
-                                    File arquivoAntigo = new File(f.getAbsolutePath() + "\\iMob.exe");
+                                    File qimobDir = new File(f.getAbsolutePath());
                                     //A atização só vai ser realizada para bancos configurados caso contrario não será atualizado
 
                                     if (!("qimob".equalsIgnoreCase(f.getName()))) {
                                         conect = new ConectDB(host, "c:/" + f.getName() + "/QIMOB.FDB", "SYSDBA", "masterkey");
                                         if (conect.connect()) {
                                             String dados1[] = ConectDB.getEmpresaCnpj(conect);
-                                            String autorizacao1 = Arquivo.lerTxtVerif(dir + "\\0000000000.txt", dados[0]);
+                                            String autorizacao1 = Arquivo.lerTxtVerif(System.getProperty("user.dir") + "/0000000000.txt", dados[0]);
 
-                                            if (autorizacao1.equalsIgnoreCase("true")) {
-                                                if (arquivoAntigo.exists()) {
-                                                    arquivoAntigo.delete();
-                                                    arquivoAntigo.delete();
-                                                    arquivoAntigo.delete();
-                                                }
-
-                                                FileInputStream inputstream = new FileInputStream("iMob.exe");
-                                                File file2 = new File(f.getAbsolutePath() + "\\iMob.exe");
+                                            if (autorizacao1.equalsIgnoreCase("1")) {
+                                                //FileInputStream inputstream = new FileInputStream("iMob.exe");
+                                              //  File file2 = new File(f.getAbsolutePath() + "\\iMob.exe");
                                                 //Transferêcia da atualização
-                                                FileUtils.copyInputStreamToFile(inputstream, file2);
+                                              //  FileUtils.copyInputStreamToFile(inputstream, file2);
+                                              Arquivo.uncompact(zipFile, qimobDir);
                                                 getInfo.setText(f.getAbsolutePath() + " (ATUALIZADO)");
                                             }
                                         } else {
@@ -297,8 +304,8 @@ public class Principal extends javax.swing.JFrame {
                                     "qImob_1.0", JOptionPane.INFORMATION_MESSAGE,
                                     imagem); */
                                 JOptionPane.showMessageDialog(null, "Sistema atualizado!");
-                                File f1 = new File(dir.getAbsolutePath() + "0000000000.txt");
-                                f1.delete();
+                                Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
+                                 Arquivo.deleteFile(System.getProperty("user.dir") + "/update.zip");
                                 dispose();
                                 System.exit(0);
                             }
@@ -350,6 +357,8 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel getInfo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
     // End of variables declaration//GEN-END:variables
 }

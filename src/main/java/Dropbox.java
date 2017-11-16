@@ -37,7 +37,7 @@ import javax.swing.JOptionPane;
 
 
 public class Dropbox {   
-    final String ACCESS_TOKEN = "KzyUksEJHXAAAAAAAAAAoe5LOZwFNPKa4Od8ySvBTwbWqY3RyP6-hvSDfkeFqF2G";
+    final String ACCESS_TOKEN = "KzyUksEJHXAAAAAAAAABYloY4kUP6uY3Y0SmbhIB3y52qY6CRY3VtdKujdOS0jLG";
     SimpleDateFormat sdff = new SimpleDateFormat("ddMMyyyyHHmm");
     DbxClientV2 client;
     DbxRequestConfig config;        
