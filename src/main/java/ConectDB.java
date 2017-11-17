@@ -126,7 +126,7 @@ public class ConectDB {
         try {
             while (rs.next()) {
                 
-                dados[0] = rs.getString("SET_CNPJ");
+                dados[0] = rs.getString("SET_CNPJ").trim();
                 if (!(dados[0] == null)) {
                     dados[0] = dados[0].replace(".", "");
                     dados[0] = dados[0].replace("/", "");

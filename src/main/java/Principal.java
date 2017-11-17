@@ -177,6 +177,18 @@ public class Principal extends javax.swing.JFrame {
                 } catch (InterruptedException ex) {
                     JOptionPane.showMessageDialog(null, "É necessário fechar o qimob");
                 }
+                
+                 ConectDB conect = new ConectDB(host, System.getProperty("user.dir")+"/QIMOB.FDB", "SYSDBA", "masterkey");
+                 //Retorna dados[0]= cnpj; dados[1]= empresa;
+                        //String dados[] = null;
+                        String[] dados = null;
+                        try{
+                            dados = ConectDB.getEmpresaCnpj(conect);
+                        } catch(java.lang.NullPointerException e){
+                            JOptionPane.showMessageDialog(null, "Algum error aconteceu com o host, entre em contato com suporte");
+                            
+                            System.exit(0);
+                        }
 
                 //COMEÇA O PROCEDIMENTO DE ATUALIZAÇÃO
                 int cont = 0; // ESSE CONTATO É UTILIZADO PARA A BARRA DE PROGRESSO
@@ -204,18 +216,9 @@ public class Principal extends javax.swing.JFrame {
 
                         jProgressBar1.setValue(52);
 
-                        ConectDB conect = new ConectDB(host, System.getProperty("user.dir")+"/QIMOB.FDB", "SYSDBA", "masterkey");
+                       
                         jProgressBar1.setValue(53);
-                        //Retorna dados[0]= cnpj; dados[1]= empresa;
-                        //String dados[] = null;
-                        String[] dados = null;
-                        try{
-                            dados = ConectDB.getEmpresaCnpj(conect);
-                        } catch(java.lang.NullPointerException e){
-                            JOptionPane.showMessageDialog(null, "Algum error aconteceu com o host, entre em contato com suporte");
-                            Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
-                            System.exit(0);
-                        }
+                       
                         // Método que verifica se o cliente tem autorização
                         jProgressBar1.setValue(54);
 
@@ -230,6 +233,7 @@ public class Principal extends javax.swing.JFrame {
                                 d.dowloand(System.getProperty("user.dir") + "/update.zip", "/update.zip");
                             } catch(com.dropbox.core.v2.files.DownloadErrorException e){
                                 JOptionPane.showMessageDialog(null, "Uma nova atualização ainda não foi disponibilizada, tente mais tarde!");
+                                Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
                                 dispose();
                                 System.exit(0);
                             }
@@ -248,13 +252,13 @@ public class Principal extends javax.swing.JFrame {
                                 cont += 1;
                                 if (f.getName().toLowerCase().startsWith("qimob")) {
                                     File qimobDir = new File(f.getAbsolutePath());
-                                    //A atização só vai ser realizada para bancos configurados caso contrario não será atualizado
+                                    //A atualização só vai ser realizada para bancos configurados caso contrario não será atualizado
 
                                     if (!("qimob".equalsIgnoreCase(f.getName()))) {
-                                        conect = new ConectDB(host, "c:/" + f.getName() + "/QIMOB.FDB", "SYSDBA", "masterkey");
+                                        conect = new ConectDB(host, f.getAbsolutePath() + "/QIMOB.FDB", "SYSDBA", "masterkey");
                                         if (conect.connect()) {
                                             String dados1[] = ConectDB.getEmpresaCnpj(conect);
-                                            String autorizacao1 = Arquivo.lerTxtVerif(System.getProperty("user.dir") + "/0000000000.txt", dados[0]);
+                                            String autorizacao1 = Arquivo.lerTxtVerif(System.getProperty("user.dir") + "/0000000000.txt", dados1[0]);
 
                                             if (autorizacao1.equalsIgnoreCase("1")) {
                                                 //FileInputStream inputstream = new FileInputStream("iMob.exe");
@@ -262,7 +266,12 @@ public class Principal extends javax.swing.JFrame {
                                                 //Transferêcia da atualização
                                               //  FileUtils.copyInputStreamToFile(inputstream, file2);
                                               Arquivo.uncompact(zipFile, qimobDir);
-                                                getInfo.setText(f.getAbsolutePath() + " (ATUALIZADO)");
+                                              getInfo.setText(f.getAbsolutePath() + " (ATUALIZADO)");
+                                            } else{
+                                                if (autorizacao.equalsIgnoreCase("0")) {
+                                                    Email.enviarEmail(email, "O Cliente: " + dados1[1] + " CNPJ: " + dados1[0] + " atualização bloqueada!", "Atualização qImob (BLOQUEADA)");
+                                                    System.out.println(f.getAbsolutePath() + "( Não atualizado)");
+                                                }
                                             }
                                         } else {
                                             sleep(100);
@@ -275,21 +284,25 @@ public class Principal extends javax.swing.JFrame {
                                     getInfo.setText("Atualizando..............");
                                 }
                             }
-
                         } else {
-                            if (autorizacao.equalsIgnoreCase("false")) {
+                            if (autorizacao.equalsIgnoreCase("0")) {
                                 Email.enviarEmail(email, "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " atualização bloqueada!", "Atualização qImob (BLOQUEADA)");
+                                Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
+                                Arquivo.deleteFile(System.getProperty("user.dir") + "/update.zip");
                                 JOptionPane.showMessageDialog(null, "Sua atualização está bloqueada entre em contato com o suporte");
                                 dispose();
                                 System.exit(0);
                             } else {
                                 Email.enviarEmail(email, "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " cadastro não encontrado!", "Atualização qImob (NÃO ENCONTRADO)");
+                                Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
+                                Arquivo.deleteFile(System.getProperty("user.dir") + "/update.zip");
                                 JOptionPane.showMessageDialog(null, "Seu cadastro não foi localizado, entre em contato com o suporte!");
                                 dispose();
                                 System.exit(0);
                             }
                         }
-
+                        Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
+                        Arquivo.deleteFile(System.getProperty("user.dir") + "/update.zip");
                         for (int i = cont; i <= 100; i++) {
                             sleep(50);
                             jProgressBar1.setValue(i);
@@ -303,9 +316,7 @@ public class Principal extends javax.swing.JFrame {
                                     "qImob_1.0 Atualizado!",
                                     "qImob_1.0", JOptionPane.INFORMATION_MESSAGE,
                                     imagem); */
-                                JOptionPane.showMessageDialog(null, "Sistema atualizado!");
-                                Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
-                                 Arquivo.deleteFile(System.getProperty("user.dir") + "/update.zip");
+                                JOptionPane.showMessageDialog(null, "Sistema atualizado!");                                
                                 dispose();
                                 System.exit(0);
                             }
