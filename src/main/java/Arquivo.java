@@ -37,7 +37,7 @@ public class Arquivo {
         BufferedReader ler = new BufferedReader(file);
         String linha = null;
         while ((linha = ler.readLine()) != null) {
-            linha =  Criptografia.descriptografar(linha); 
+            linha =  Criptografia.descriptografar(linha);            
             linha = linha.replace("/", "");
             linha = linha.replace(".", "");
             linha = linha.replace("-", "");
@@ -204,7 +204,7 @@ public class Arquivo {
     public static void deleteFile(String path) {
         File delete = new File(path);
         if (delete.exists()) {
-            delete.delete();
+            delete.deleteOnExit();
         } else {
             System.out.println("Erro ao deletar");
         }

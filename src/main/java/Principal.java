@@ -146,12 +146,12 @@ public class Principal extends javax.swing.JFrame {
                             host = linha.substring(5);
                             if(host.isEmpty()){
                                 JOptionPane.showMessageDialog(null, "Host vazio, atualização não realizada");
-                                dispose();
+                                
                                 System.exit(0);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "host não encontrado, atualização não realizada");
-                            dispose();
+                           
                             System.exit(0);
                         }
 
@@ -210,7 +210,7 @@ public class Principal extends javax.swing.JFrame {
                             d.dowloand(System.getProperty("user.dir") + "/0000000000.txt", "/0000000000.txt");
                         } catch(com.dropbox.core.NetworkIOException ex){
                             JOptionPane.showMessageDialog(null, "Falha! Conexão com a internet");
-                            dispose();
+                            
                             System.exit(0);
                         }
 
@@ -233,8 +233,8 @@ public class Principal extends javax.swing.JFrame {
                                 d.dowloand(System.getProperty("user.dir") + "/update.zip", "/update.zip");
                             } catch(com.dropbox.core.v2.files.DownloadErrorException e){
                                 JOptionPane.showMessageDialog(null, "Uma nova atualização ainda não foi disponibilizada, tente mais tarde!");
-                                Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
-                                dispose();
+                                Arquivo.deleteFile("0000000000.txt");
+                                
                                 System.exit(0);
                             }
 
@@ -287,22 +287,23 @@ public class Principal extends javax.swing.JFrame {
                         } else {
                             if (autorizacao.equalsIgnoreCase("0")) {
                                 Email.enviarEmail(email, "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " atualização bloqueada!", "Atualização qImob (BLOQUEADA)");
-                                Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
-                                Arquivo.deleteFile(System.getProperty("user.dir") + "/update.zip");
+                                Arquivo.deleteFile("0000000000.txt");
+                                Arquivo.deleteFile("update.zip");
                                 JOptionPane.showMessageDialog(null, "Sua atualização está bloqueada entre em contato com o suporte");
-                                dispose();
+                                
                                 System.exit(0);
                             } else {
                                 Email.enviarEmail(email, "O Cliente: " + dados[1] + " CNPJ: " + dados[0]+  " cadastro não encontrado!", "Atualização qImob (NÃO ENCONTRADO)");
-                                Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
-                                Arquivo.deleteFile(System.getProperty("user.dir") + "/update.zip");
+                                Arquivo.deleteFile("0000000000.txt");
+                                Arquivo.deleteFile("update.zip");
                                 JOptionPane.showMessageDialog(null, "Seu cadastro não foi localizado, entre em contato com o suporte!");
-                                dispose();
+                                
                                 System.exit(0);
                             }
                         }
-                        Arquivo.deleteFile(System.getProperty("user.dir") + "/0000000000.txt");
-                        Arquivo.deleteFile(System.getProperty("user.dir") + "/update.zip");
+                        Arquivo.deleteFile("0000000000.txt");
+                        Arquivo.deleteFile("update.zip");
+                        
                         for (int i = cont; i <= 100; i++) {
                             sleep(50);
                             jProgressBar1.setValue(i);
@@ -316,8 +317,8 @@ public class Principal extends javax.swing.JFrame {
                                     "qImob_1.0 Atualizado!",
                                     "qImob_1.0", JOptionPane.INFORMATION_MESSAGE,
                                     imagem); */
-                                JOptionPane.showMessageDialog(null, "Sistema atualizado!");                                
-                                dispose();
+                                JOptionPane.showMessageDialog(null, "Sistema atualizado com a última atualização diponível no momento!");                                
+                                
                                 System.exit(0);
                             }
                         }
